@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../../lib/primitives.js";
 import { safeParse } from "../../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import { RFCDate } from "../../types/rfcdate.js";
 
 export type GetSearchResultsRequest = {
   /**
@@ -36,7 +37,7 @@ export type GetSearchResultsMedia = {
   audioChannels?: number | undefined;
   audioCodec?: string | undefined;
   videoCodec?: string | undefined;
-  videoResolution?: number | undefined;
+  videoResolution?: string | undefined;
   container?: string | undefined;
   videoFrameRate?: string | undefined;
   audioProfile?: string | undefined;
@@ -286,7 +287,7 @@ export const GetSearchResultsMedia$inboundSchema: z.ZodType<
   audioChannels: z.number().optional(),
   audioCodec: z.string().optional(),
   videoCodec: z.string().optional(),
-  videoResolution: z.number().optional(),
+  videoResolution: z.string().optional(),
   container: z.string().optional(),
   videoFrameRate: z.string().optional(),
   audioProfile: z.string().optional(),
@@ -309,7 +310,7 @@ export type GetSearchResultsMedia$Outbound = {
   audioChannels?: number | undefined;
   audioCodec?: string | undefined;
   videoCodec?: string | undefined;
-  videoResolution?: number | undefined;
+  videoResolution?: string | undefined;
   container?: string | undefined;
   videoFrameRate?: string | undefined;
   audioProfile?: string | undefined;
@@ -332,7 +333,7 @@ export const GetSearchResultsMedia$outboundSchema: z.ZodType<
   audioChannels: z.number().optional(),
   audioCodec: z.string().optional(),
   videoCodec: z.string().optional(),
-  videoResolution: z.number().optional(),
+  videoResolution: z.string().optional(),
   container: z.string().optional(),
   videoFrameRate: z.string().optional(),
   audioProfile: z.string().optional(),
@@ -766,7 +767,8 @@ export const GetSearchResultsMetadata$outboundSchema: z.ZodType<
   thumb: z.string().optional(),
   art: z.string().optional(),
   duration: z.number().optional(),
-  originallyAvailableAt: z.date().transform(v => v.toISOString()).optional(),
+  originallyAvailableAt: z.instanceof(RFCDate).transform(v => v.toString())
+  .optional(),
   addedAt: z.number().optional(),
   updatedAt: z.number().optional(),
   audienceRatingImage: z.string().optional(),
