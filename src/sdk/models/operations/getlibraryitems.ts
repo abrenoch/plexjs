@@ -427,7 +427,7 @@ export type GetLibraryItemsPart = {
   container: string;
   audioProfile?: string | undefined;
   has64bitOffsets?: boolean | undefined;
-  optimizedForStreaming?: GetLibraryItemsOptimizedForStreaming | undefined;
+  optimizedForStreaming?: boolean | undefined;
   videoProfile?: string | undefined;
   indexes?: string | undefined;
   hasThumbnail?: GetLibraryItemsHasThumbnail | undefined;
@@ -450,7 +450,7 @@ export type GetLibraryItemsMedia = {
   videoFrameRate?: string | undefined;
   videoProfile?: string | undefined;
   hasVoiceActivity?: boolean | undefined;
-  optimizedForStreaming?: GetLibraryItemsOptimizedForStreaming | undefined;
+  optimizedForStreaming?: boolean | undefined;
   has64bitOffsets?: boolean | undefined;
   part: Array<GetLibraryItemsPart>;
 };
@@ -1787,7 +1787,7 @@ export const GetLibraryItemsPart$inboundSchema: z.ZodType<
   container: z.string(),
   audioProfile: z.string().optional(),
   has64bitOffsets: z.boolean().optional(),
-  optimizedForStreaming: GetLibraryItemsOptimizedForStreaming$inboundSchema.optional(),
+  optimizedForStreaming: z.boolean().optional(),
   videoProfile: z.string().optional(),
   indexes: z.string().optional(),
   hasThumbnail: GetLibraryItemsHasThumbnail$inboundSchema.default(
@@ -1810,7 +1810,7 @@ export type GetLibraryItemsPart$Outbound = {
   container: string;
   audioProfile?: string | undefined;
   has64bitOffsets?: boolean | undefined;
-  optimizedForStreaming?: GetLibraryItemsOptimizedForStreaming | undefined;
+  optimizedForStreaming?: boolean | undefined;
   videoProfile?: string | undefined;
   indexes?: string | undefined;
   hasThumbnail: string;
@@ -1831,9 +1831,7 @@ export const GetLibraryItemsPart$outboundSchema: z.ZodType<
   container: z.string(),
   audioProfile: z.string().optional(),
   has64bitOffsets: z.boolean().optional(),
-  optimizedForStreaming: GetLibraryItemsOptimizedForStreaming$outboundSchema
-    .default(GetLibraryItemsOptimizedForStreaming.Disable)
-    .optional(),
+  optimizedForStreaming: z.boolean().optional(),
   videoProfile: z.string().optional(),
   indexes: z.string().optional(),
   hasThumbnail: GetLibraryItemsHasThumbnail$outboundSchema.default(
@@ -1899,8 +1897,7 @@ export const GetLibraryItemsMedia$inboundSchema: z.ZodType<
   videoFrameRate: z.string().optional(),
   videoProfile: z.string().optional(),
   hasVoiceActivity: z.boolean().optional(),
-  optimizedForStreaming: GetLibraryItemsOptimizedForStreaming$inboundSchema
-    .optional(),
+  optimizedForStreaming: z.boolean().optional(),
   has64bitOffsets: z.boolean().optional(),
   Part: z.array(z.lazy(() => GetLibraryItemsPart$inboundSchema)),
 }).transform((v) => {
@@ -1926,7 +1923,7 @@ export type GetLibraryItemsMedia$Outbound = {
   videoFrameRate?: string | undefined;
   videoProfile?: string | undefined;
   hasVoiceActivity?: boolean | undefined;
-  optimizedForStreaming?: GetLibraryItemsOptimizedForStreaming | undefined;
+  optimizedForStreaming?: boolean | undefined;
   has64bitOffsets?: boolean | undefined;
   Part: Array<GetLibraryItemsPart$Outbound>;
 };
@@ -1952,9 +1949,7 @@ export const GetLibraryItemsMedia$outboundSchema: z.ZodType<
   videoFrameRate: z.string().optional(),
   videoProfile: z.string().optional(),
   hasVoiceActivity: z.boolean().optional(),
-  optimizedForStreaming: GetLibraryItemsOptimizedForStreaming$outboundSchema
-    .default(GetLibraryItemsOptimizedForStreaming.Disable)
-    .optional(),
+  optimizedForStreaming: z.boolean().optional(),
   has64bitOffsets: z.boolean().optional(),
   part: z.array(z.lazy(() => GetLibraryItemsPart$outboundSchema)),
 }).transform((v) => {
