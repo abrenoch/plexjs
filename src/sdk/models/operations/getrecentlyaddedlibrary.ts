@@ -7,7 +7,6 @@ import { remap as remap$ } from "../../../lib/primitives.js";
 import { safeParse } from "../../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import { RFCDate } from "../../types/rfcdate.js";
 
 /**
  * The type of media to retrieve or filter by.
@@ -231,7 +230,7 @@ export type GetRecentlyAddedLibraryMetadata = {
   thumb?: string | undefined;
   art?: string | undefined;
   duration?: number | undefined;
-  originallyAvailableAt?: Date | undefined;
+  originallyAvailableAt?: string | undefined;
   addedAt?: number | undefined;
   updatedAt?: number | undefined;
   audienceRatingImage?: string | undefined;
@@ -1363,8 +1362,7 @@ export const GetRecentlyAddedLibraryMetadata$inboundSchema: z.ZodType<
   thumb: z.string().optional(),
   art: z.string().optional(),
   duration: z.number().optional(),
-  originallyAvailableAt: z.instanceof(RFCDate).transform(v => v.toString())
-  .optional(),
+  originallyAvailableAt: z.string().optional(),
   addedAt: z.number().optional(),
   updatedAt: z.number().optional(),
   audienceRatingImage: z.string().optional(),
@@ -1455,7 +1453,7 @@ export const GetRecentlyAddedLibraryMetadata$outboundSchema: z.ZodType<
   thumb: z.string().optional(),
   art: z.string().optional(),
   duration: z.number().optional(),
-  originallyAvailableAt: z.date().transform(v => v.toISOString()).optional(),
+  originallyAvailableAt: z.string().optional(),
   addedAt: z.number().optional(),
   updatedAt: z.number().optional(),
   audienceRatingImage: z.string().optional(),

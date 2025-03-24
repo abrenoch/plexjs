@@ -7,7 +7,6 @@ import { remap as remap$ } from "../../../lib/primitives.js";
 import { safeParse } from "../../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import { RFCDate } from "../../types/rfcdate.js";
 
 export type GetSearchResultsRequest = {
   /**
@@ -87,7 +86,7 @@ export type GetSearchResultsMetadata = {
   thumb?: string | undefined;
   art?: string | undefined;
   duration?: number | undefined;
-  originallyAvailableAt?: Date | undefined;
+  originallyAvailableAt?: string | undefined;
   addedAt?: number | undefined;
   updatedAt?: number | undefined;
   audienceRatingImage?: string | undefined;
@@ -673,9 +672,7 @@ export const GetSearchResultsMetadata$inboundSchema: z.ZodType<
   thumb: z.string().optional(),
   art: z.string().optional(),
   duration: z.number().optional(),
-  originallyAvailableAt: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ).optional(),
+  originallyAvailableAt: z.string().optional(),
   addedAt: z.number().optional(),
   updatedAt: z.number().optional(),
   audienceRatingImage: z.string().optional(),
@@ -767,8 +764,7 @@ export const GetSearchResultsMetadata$outboundSchema: z.ZodType<
   thumb: z.string().optional(),
   art: z.string().optional(),
   duration: z.number().optional(),
-  originallyAvailableAt: z.instanceof(RFCDate).transform(v => v.toString())
-  .optional(),
+  originallyAvailableAt: z.string().optional(),
   addedAt: z.number().optional(),
   updatedAt: z.number().optional(),
   audienceRatingImage: z.string().optional(),
