@@ -1787,7 +1787,7 @@ export const GetLibraryItemsPart$inboundSchema: z.ZodType<
   container: z.string(),
   audioProfile: z.string().optional(),
   has64bitOffsets: z.boolean().optional(),
-  optimizedForStreaming: z.number().int().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   videoProfile: z.string().optional(),
   indexes: z.string().optional(),
   hasThumbnail: GetLibraryItemsHasThumbnail$inboundSchema.default(
@@ -1831,7 +1831,7 @@ export const GetLibraryItemsPart$outboundSchema: z.ZodType<
   container: z.string(),
   audioProfile: z.string().optional(),
   has64bitOffsets: z.boolean().optional(),
-  optimizedForStreaming: z.number().int().or(z.boolean()).optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   videoProfile: z.string().optional(),
   indexes: z.string().optional(),
   hasThumbnail: GetLibraryItemsHasThumbnail$outboundSchema.default(
@@ -1897,7 +1897,7 @@ export const GetLibraryItemsMedia$inboundSchema: z.ZodType<
   videoFrameRate: z.string().optional(),
   videoProfile: z.string().optional(),
   hasVoiceActivity: z.boolean().optional(),
-  optimizedForStreaming: z.number().int().or(z.boolean()).optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   has64bitOffsets: z.boolean().optional(),
   Part: z.array(z.lazy(() => GetLibraryItemsPart$inboundSchema)),
 }).transform((v) => {
@@ -1949,7 +1949,7 @@ export const GetLibraryItemsMedia$outboundSchema: z.ZodType<
   videoFrameRate: z.string().optional(),
   videoProfile: z.string().optional(),
   hasVoiceActivity: z.boolean().optional(),
-  optimizedForStreaming: z.number().int().or(z.boolean()).optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   has64bitOffsets: z.boolean().optional(),
   part: z.array(z.lazy(() => GetLibraryItemsPart$outboundSchema)),
 }).transform((v) => {

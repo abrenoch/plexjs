@@ -167,7 +167,7 @@ export type GetRecentlyAddedLibraryPart = {
   container?: string | undefined;
   has64bitOffsets?: boolean | undefined;
   hasThumbnail?: number | undefined;
-  optimizedForStreaming?: boolean | undefined;
+  optimizedForStreaming?: boolean | number | undefined;
   videoProfile?: string | undefined;
 };
 
@@ -184,7 +184,7 @@ export type GetRecentlyAddedLibraryMedia = {
   videoResolution?: string | undefined;
   container?: string | undefined;
   videoFrameRate?: string | undefined;
-  optimizedForStreaming?: number | undefined;
+  optimizedForStreaming?: boolean | number | undefined;
   has64bitOffsets?: boolean | undefined;
   videoProfile?: string | undefined;
   part?: Array<GetRecentlyAddedLibraryPart> | undefined;
@@ -877,7 +877,7 @@ export const GetRecentlyAddedLibraryPart$inboundSchema: z.ZodType<
   container: z.string().optional(),
   has64bitOffsets: z.boolean().optional(),
   hasThumbnail: z.number().optional(),
-  optimizedForStreaming: z.boolean().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   videoProfile: z.string().optional(),
 });
 
@@ -891,7 +891,7 @@ export type GetRecentlyAddedLibraryPart$Outbound = {
   container?: string | undefined;
   has64bitOffsets?: boolean | undefined;
   hasThumbnail?: number | undefined;
-  optimizedForStreaming?: boolean | undefined;
+  optimizedForStreaming?: boolean | number | undefined;
   videoProfile?: string | undefined;
 };
 
@@ -909,7 +909,7 @@ export const GetRecentlyAddedLibraryPart$outboundSchema: z.ZodType<
   container: z.string().optional(),
   has64bitOffsets: z.boolean().optional(),
   hasThumbnail: z.number().optional(),
-  optimizedForStreaming: z.boolean().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   videoProfile: z.string().optional(),
 });
 
@@ -964,7 +964,7 @@ export const GetRecentlyAddedLibraryMedia$inboundSchema: z.ZodType<
   videoResolution: z.string().optional(),
   container: z.string().optional(),
   videoFrameRate: z.string().optional(),
-  optimizedForStreaming: z.number().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   has64bitOffsets: z.boolean().optional(),
   videoProfile: z.string().optional(),
   Part: z.array(z.lazy(() => GetRecentlyAddedLibraryPart$inboundSchema))
@@ -989,7 +989,7 @@ export type GetRecentlyAddedLibraryMedia$Outbound = {
   videoResolution?: string | undefined;
   container?: string | undefined;
   videoFrameRate?: string | undefined;
-  optimizedForStreaming?: number | undefined;
+  optimizedForStreaming?: boolean | number | undefined;
   has64bitOffsets?: boolean | undefined;
   videoProfile?: string | undefined;
   Part?: Array<GetRecentlyAddedLibraryPart$Outbound> | undefined;
@@ -1013,7 +1013,7 @@ export const GetRecentlyAddedLibraryMedia$outboundSchema: z.ZodType<
   videoResolution: z.string().optional(),
   container: z.string().optional(),
   videoFrameRate: z.string().optional(),
-  optimizedForStreaming: z.number().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   has64bitOffsets: z.boolean().optional(),
   videoProfile: z.string().optional(),
   part: z.array(z.lazy(() => GetRecentlyAddedLibraryPart$outboundSchema))

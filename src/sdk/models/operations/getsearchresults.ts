@@ -24,6 +24,7 @@ export type GetSearchResultsPart = {
   audioProfile?: string | undefined;
   container?: string | undefined;
   videoProfile?: string | undefined;
+  optimizedForStreaming?: boolean | number | undefined;
 };
 
 export type GetSearchResultsMedia = {
@@ -41,6 +42,7 @@ export type GetSearchResultsMedia = {
   videoFrameRate?: string | undefined;
   audioProfile?: string | undefined;
   videoProfile?: string | undefined;
+  optimizedForStreaming?: boolean | number | undefined;
   part?: Array<GetSearchResultsPart> | undefined;
 };
 
@@ -210,6 +212,7 @@ export const GetSearchResultsPart$inboundSchema: z.ZodType<
   audioProfile: z.string().optional(),
   container: z.string().optional(),
   videoProfile: z.string().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
 });
 
 /** @internal */
@@ -222,6 +225,7 @@ export type GetSearchResultsPart$Outbound = {
   audioProfile?: string | undefined;
   container?: string | undefined;
   videoProfile?: string | undefined;
+  optimizedForStreaming?: boolean | number | undefined;
 };
 
 /** @internal */
@@ -238,6 +242,7 @@ export const GetSearchResultsPart$outboundSchema: z.ZodType<
   audioProfile: z.string().optional(),
   container: z.string().optional(),
   videoProfile: z.string().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
 });
 
 /**
@@ -291,6 +296,7 @@ export const GetSearchResultsMedia$inboundSchema: z.ZodType<
   videoFrameRate: z.string().optional(),
   audioProfile: z.string().optional(),
   videoProfile: z.string().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   Part: z.array(z.lazy(() => GetSearchResultsPart$inboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -314,6 +320,7 @@ export type GetSearchResultsMedia$Outbound = {
   videoFrameRate?: string | undefined;
   audioProfile?: string | undefined;
   videoProfile?: string | undefined;
+  optimizedForStreaming?: boolean | number | undefined;
   Part?: Array<GetSearchResultsPart$Outbound> | undefined;
 };
 
@@ -337,6 +344,7 @@ export const GetSearchResultsMedia$outboundSchema: z.ZodType<
   videoFrameRate: z.string().optional(),
   audioProfile: z.string().optional(),
   videoProfile: z.string().optional(),
+  optimizedForStreaming: z.union([z.boolean(), z.number()]).optional(),
   part: z.array(z.lazy(() => GetSearchResultsPart$outboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
